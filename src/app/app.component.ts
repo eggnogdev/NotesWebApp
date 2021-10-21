@@ -18,7 +18,7 @@ export class Note {
 export class AppComponent {
   title = 'NotesWebApp';
 
-  public notes = Array<Note>();
+  public notes = new Array<Note>();
   
   onAdd() {
     let newNote = new Note(new Date(Date.now()), 'New Note');
@@ -34,5 +34,4 @@ export class AppComponent {
     this.notes.pop()
     console.log(this.notes);
   }
-  
 }
