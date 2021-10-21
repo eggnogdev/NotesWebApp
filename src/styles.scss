@@ -1,0 +1,32 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+
+// MDC Typography
+@use '@material/typography/mdc-typography';
+
+// MDC Button
+@use '@material/button/mdc-button';
+@use '@material/button';
+@use '@material/theme';
+
+// @use '@material/theme' with (
+//   $primary: #6200ee,
+//   $secondary: #faab1a,
+//   $background: #fff,
+// );
+
+@use '@angular-mdc/theme/material';
+
+.button-primary {
+  @include button.filled-accessible(theme.$primary);
+}
+
+
+.button-secondary {
+  @include button.filled-accessible(theme.$secondary);
+}
+
+// Angular MDC
+
+
