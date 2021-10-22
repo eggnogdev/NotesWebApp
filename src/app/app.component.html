@@ -317,8 +317,15 @@
 </div>
 
 <div class="content" role="main">
-  <button (click)="onAdd()">Add</button>
-  <button (click)="onDelete()">Delete</button>
-  <button mdc-button>Example</button>
+  <button (click)="onAdd()" class="mdc-button mdc-button--icon-leading">
+    <span class="mdc-button__ripple"></span>
+    <i class="material-icons mdc-button__icon" aria-hidden="true">post_add</i>
+    <span class="mdc-button__label">Add</span>
+  </button>
+  <button (click)="onDelete()" class="mdc-button mdc-button--icon-leading">
+    <span class="mdc-button__ripple"></span>
+    <i class="material-icons mdc-button__icon" aria-hidden="true">delete_outline</i>
+    <span class="mdc-button__label">Delete</span>
+  </button>
 </div>
 
