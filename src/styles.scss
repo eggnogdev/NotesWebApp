@@ -9,6 +9,8 @@
 @use '@material/button/mdc-button';
 @use '@material/button';
 @use '@material/theme';
+@use "@material/list";
+
 
 // @use '@material/theme' with (
 //   $primary: #6200ee,
@@ -26,7 +28,7 @@
 .button-secondary {
   @include button.filled-accessible(theme.$secondary);
 }
-
+@include list.core-styles;
 // Angular MDC
 
 
