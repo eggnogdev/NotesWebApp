@@ -5,9 +5,7 @@ export class Note {
   date: Date | undefined;
   text: string | undefined;
 
-
   constructor(title: string, date: Date, text: string) {
-
     this.title = title;
     this.text = text;
     this.date = date;
@@ -17,33 +15,32 @@ export class Note {
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   title = 'NotesWebApp';
   public counter = 0;
   public notes = new Array<Note>();
-  
-  onAdd() {
+  public selectedIndex = -1;
 
-    let newNote = new Note(`New Note ${++this.counter}`, new Date(Date.now()), 'text here');
+  onAdd() {
+    let newNote = new Note(
+      `New Note ${++this.counter}`,
+      new Date(Date.now()),
+      'text here'
+    );
     this.notes.push(newNote);
-    console.log(this.notes);
   }
 
   onDelete() {
-    if (this.notes.length == 0) {
-      console.log('no notes to remove');
+    if (this.selectedIndex === -1) {
       return;
     }
-    this.counter--;
-    this.notes.pop()
-    console.log(this.notes);
+    this.notes.splice(this.selectedIndex, 1);
+    this.selectedIndex = -1;
   }
-  listItemClicked () {
-    console.log('list item clicked');
-  }
+
   onSelectionChange(event: any) {
-    console.log(event);
+    this.selectedIndex = event.source.getSelectedIndex();
   }
 }
