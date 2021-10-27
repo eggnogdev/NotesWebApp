@@ -9,8 +9,9 @@
 @use '@material/button/mdc-button';
 @use '@material/button';
 @use '@material/theme';
-@use "@material/list";
 
+@use '@material/list/mdc-list';
+@use '@material/list';
 
 // @use '@material/theme' with (
 //   $primary: #6200ee,
