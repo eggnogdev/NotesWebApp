@@ -317,32 +317,23 @@
 </div>
 
 <div class="content" role="main">
+
   <button (click)="onAdd()" class="mdc-button mdc-button--icon-leading">
     <span class="mdc-button__ripple"></span>
     <i class="material-icons mdc-button__icon" aria-hidden="true">post_add</i>
     <span class="mdc-button__label">Add</span>
   </button>
+
   <button (click)="onDelete()" class="mdc-button mdc-button--icon-leading">
     <span class="mdc-button__ripple"></span>
     <i class="material-icons mdc-button__icon" aria-hidden="true">delete_outline</i>
     <span class="mdc-button__label">Delete</span>
   </button>
-  <mdc-list [twoLine]="true" *ngFor="let note of notes" (selectionChange)="onSelectionChange($event)">
-    <mdc-list-item>
+
+  <mdc-list [dense]="false" [twoLine]="true" [useSelectedClass]="true" [singleSelection]="true" (selectionChange)="onSelectionChange($event)">
+  <mdc-list-item  *ngFor="let note of notes">
       <mdc-list-item-text [secondaryText]="note.date ? note.date.toLocaleString() : ''">{{note.title}}</mdc-list-item-text>
     </mdc-list-item>
-    <!-- <mdc-list-item>
-      <mdc-list-item-text secondaryText="Secondary text">Single-line item</mdc-list-item-text>
-    </mdc-list-item> -->
   </mdc-list>
-  <!-- <ul class="mdc-list mdc-list--two-line">
-    <li (click)="listItemClicked()" class="mdc-list-item" *ngFor="let note of notes">
-      <span class="mdc-list-item__text">
-        <span class="mdc-list-item__primary-text">{{note.title}}</span>
-        <span class="mdc-list-item__secondary-text">{{note.date}}</span>
-      </span>
-    </li>
-  </ul> -->
-
 </div>
 
