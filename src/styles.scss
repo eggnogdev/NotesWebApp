@@ -1,17 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 
-
-
 // MDC Typography
-@use '@material/typography/mdc-typography';
+@use "@material/typography/mdc-typography";
 
 // MDC Button
-@use '@material/button/mdc-button';
-@use '@material/button';
-@use '@material/theme';
+@use "@material/button/mdc-button";
+@use "@material/button";
+@use "@material/theme";
 
-@use '@material/list/mdc-list';
-@use '@material/list';
+// MDC List
+@use "@material/list/mdc-list";
+@use "@material/list";
 
 // @use '@material/theme' with (
 //   $primary: #6200ee,
@@ -19,17 +18,14 @@
 //   $background: #fff,
 // );
 
-@use '@angular-mdc/theme/material';
+@use "@angular-mdc/theme/material";
 
 .button-primary {
   @include button.filled-accessible(theme.$primary);
 }
 
-
 .button-secondary {
   @include button.filled-accessible(theme.$secondary);
 }
-@include list.core-styles;
+
 // Angular MDC
-
-
