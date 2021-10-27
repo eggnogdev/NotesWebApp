@@ -327,13 +327,22 @@
     <i class="material-icons mdc-button__icon" aria-hidden="true">delete_outline</i>
     <span class="mdc-button__label">Delete</span>
   </button>
-  <ul class="mdc-list mdc-list--two-line">
+  <mdc-list [twoLine]="true" *ngFor="let note of notes" (selectionChange)="onSelectionChange($event)">
+    <mdc-list-item>
+      <mdc-list-item-text [secondaryText]="note.date ? note.date.toLocaleString() : ''">{{note.title}}</mdc-list-item-text>
+    </mdc-list-item>
+    <!-- <mdc-list-item>
+      <mdc-list-item-text secondaryText="Secondary text">Single-line item</mdc-list-item-text>
+    </mdc-list-item> -->
+  </mdc-list>
+  <!-- <ul class="mdc-list mdc-list--two-line">
     <li (click)="listItemClicked()" class="mdc-list-item" *ngFor="let note of notes">
       <span class="mdc-list-item__text">
         <span class="mdc-list-item__primary-text">{{note.title}}</span>
         <span class="mdc-list-item__secondary-text">{{note.date}}</span>
       </span>
     </li>
-  </ul>
+  </ul> -->
+
 </div>
 
