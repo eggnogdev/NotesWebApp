@@ -18,29 +18,51 @@ export class Note {
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  // i want to have the delete button disabled unless a note is selected
+  // this means when adding a note to the list, selection is clear
   title = 'NotesWebApp';
   public counter = 0;
   public notes = new Array<Note>();
   public selectedIndex = -1;
+  public addDisabled = true;
+  public deleteDisabled = true;
+  public noteTitle = '';
+  public noteText = '';
 
   onAdd() {
     let newNote = new Note(
-      `New Note ${++this.counter}`,
+      this.noteTitle,
       new Date(Date.now()),
-      'text here'
+      this.noteText
     );
-    this.notes.push(newNote);
+    this.notes.unshift(newNote);
   }
 
   onDelete() {
-    if (this.selectedIndex === -1) {
-      return;
-    }
     this.notes.splice(this.selectedIndex, 1);
     this.selectedIndex = -1;
+    this.deleteDisabled = true;
   }
 
   onSelectionChange(event: any) {
     this.selectedIndex = event.source.getSelectedIndex();
+    this.deleteDisabled = false;
+  }
+
+  onTextFieldInput(event: any) {
+    if (event.length === 0) {
+      this.addDisabled = true;
+    }
+    else {
+      this.addDisabled = false;
+    }
+  }
+
+  onTextFieldChange(event: any) {
+    this.noteTitle = event;
+  }
+
+  onTextAreaChange(event: any) {
+    this.noteText = event;
   }
 }
