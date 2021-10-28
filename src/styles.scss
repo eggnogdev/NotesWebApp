@@ -18,6 +18,11 @@
 //   $background: #fff,
 // );
 
+// MDC Text Field - Text Area
+@use '@material/textfield/mdc-text-field';
+@use '@material/textfield/_index' as textfield;
+@use '@material/form-field/_index' as form-field;
+
 @use "@angular-mdc/theme/material";
 
 .button-primary {
@@ -27,5 +32,3 @@
 .button-secondary {
   @include button.filled-accessible(theme.$secondary);
 }
-
-// Angular MDC
