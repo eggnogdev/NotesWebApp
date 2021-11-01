@@ -320,29 +320,33 @@
 
 <div class="content" role="main">
 
-  <button [disabled]="addDisabled" (click)="onAdd()" class="mdc-button mdc-button--icon-leading">
-    <span class="mdc-button__ripple"></span>
-    <i class="material-icons mdc-button__icon" aria-hidden="true">post_add</i>
-    <span class="mdc-button__label">Add</span>
-  </button>
+</div>
 
-  <button [disabled]="deleteDisabled" (click)="onDelete()" class="mdc-button mdc-button--icon-leading">
-    <span class="mdc-button__ripple"></span>
-    <i class="material-icons mdc-button__icon" aria-hidden="true">delete_outline</i>
-    <span class="mdc-button__label">Delete</span>
-  </button>
+<div fxLayout="row">
+  <div fxFlex="225px">
+    <mdc-list [dense]="false" [twoLine]="true" [useSelectedClass]="true" [singleSelection]="true" (selectionChange)="onSelectionChange($event)">
+      <mdc-list-item *ngFor="let note of notes">
+        <mdc-list-item-text [secondaryText]="note.date ? note.date.toLocaleString() : ''">{{note.title}}
+        </mdc-list-item-text>
+        <span mdcListItemMeta mdcIcon title="Delete" (click)="onDelete(note)">clear</span>
+      </mdc-list-item>
+    </mdc-list>
+  </div>
+  <div fxLayout="column">
+    <div fxLayout="row" fxLayoutGap="15px">
+      <button [disabled]="addDisabled" (click)="onAdd()" class="mdc-button mdc-button--icon-leading">
+        <span class="mdc-button__ripple"></span>
+        <i class="material-icons mdc-button__icon" aria-hidden="true">post_add</i>
+        <span class="mdc-button__label">Add</span>
+      </button>
+    </div>
+    <div fxLayout="column" fxLayoutGap="15px">
+      <mdc-text-field #noteTitleInput label="Title" (input)="onTextFieldInput($event)" (change)="onTextFieldChange($event)">
+      </mdc-text-field>
+    
+      <mdc-textarea #noteTextInput label="Note" [rows]="5" [cols]="50" (change)="onTextAreaChange($event)">
+      </mdc-textarea>
+    </div>
 
-  <mdc-text-field label="Title" (input)="onTextFieldInput($event)" (change)="onTextFieldChange($event)">
-  </mdc-text-field>
-
-  <mdc-textarea label="Note" [rows]="5" [cols]="50" (change)="onTextAreaChange($event)">
-  </mdc-textarea>
-
-  <mdc-list [dense]="false" [twoLine]="true" [useSelectedClass]="true" [singleSelection]="true" (selectionChange)="onSelectionChange($event)">
-    <mdc-list-item *ngFor="let note of notes">
-      <mdc-list-item-text [secondaryText]="note.date ? note.date.toLocaleString() : ''">{{note.title}}
-      </mdc-list-item-text>
-    </mdc-list-item>
-  </mdc-list>
-
+  </div>
 </div>
