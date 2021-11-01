@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { MdcTextarea, MdcTextField } from '@angular-mdc/web';
+import { Component, ViewChild } from '@angular/core';
 
 export class Note {
   title: string | undefined;
@@ -12,14 +13,16 @@ export class Note {
   }
 }
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  // i want to have the delete button disabled unless a note is selected
-  // this means when adding a note to the list, selection is clear
+  @ViewChild('noteTextInput') noteTextInput: MdcTextarea | undefined;
+  @ViewChild('noteTitleInput') noteTitleInput: MdcTextField | undefined;
+  
   title = 'NotesWebApp';
   public counter = 0;
   public notes = new Array<Note>();
@@ -36,12 +39,18 @@ export class AppComponent {
       this.noteText
     );
     this.notes.unshift(newNote);
+    this.noteTextInput?.writeValue(null);
+    this.noteTitleInput?.writeValue(null);
+    this.addDisabled = true;
   }
 
-  onDelete() {
-    this.notes.splice(this.selectedIndex, 1);
-    this.selectedIndex = -1;
-    this.deleteDisabled = true;
+  // onDelete() {
+  //   this.notes.splice(this.selectedIndex, 1);
+  //   this.selectedIndex = -1;
+  //   this.deleteDisabled = true;
+  // }
+  onDelete(note: Note) {
+    this.notes.splice(this.notes.indexOf(note), 1);
   }
 
   onSelectionChange(event: any) {
