@@ -22,15 +22,19 @@ export class Note {
 export class AppComponent {
   @ViewChild('noteTextInput') noteTextInput: MdcTextarea | undefined;
   @ViewChild('noteTitleInput') noteTitleInput: MdcTextField | undefined;
-  
+
   title = 'NotesWebApp';
   public counter = 0;
   public notes = new Array<Note>();
   public selectedIndex = -1;
   public addDisabled = true;
-  public deleteDisabled = true;
   public noteTitle = '';
   public noteText = '';
+
+  clearTextFields() {
+    this.noteTextInput?.writeValue(null);
+    this.noteTitleInput?.writeValue(null)
+  }
 
   onAdd() {
     let newNote = new Note(
@@ -39,23 +43,22 @@ export class AppComponent {
       this.noteText
     );
     this.notes.unshift(newNote);
-    this.noteTextInput?.writeValue(null);
-    this.noteTitleInput?.writeValue(null);
+    this.clearTextFields();
     this.addDisabled = true;
   }
 
-  // onDelete() {
-  //   this.notes.splice(this.selectedIndex, 1);
-  //   this.selectedIndex = -1;
-  //   this.deleteDisabled = true;
-  // }
   onDelete(note: Note) {
+    if (this.notes.indexOf(note) === this.selectedIndex) {
+      this.clearTextFields();
+    }
+
     this.notes.splice(this.notes.indexOf(note), 1);
   }
 
   onSelectionChange(event: any) {
     this.selectedIndex = event.source.getSelectedIndex();
-    this.deleteDisabled = false;
+    this.noteTitleInput?.writeValue(this.notes[this.selectedIndex].title);
+    this.noteTextInput?.writeValue(this.notes[this.selectedIndex].text);
   }
 
   onTextFieldInput(event: any) {
