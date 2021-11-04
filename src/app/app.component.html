@@ -324,8 +324,8 @@
 
 <div fxLayout="row">
   <div fxFlex="225px">
-    <mdc-list [dense]="false" [twoLine]="true" [useSelectedClass]="true" [singleSelection]="true" (selectionChange)="onSelectionChange($event)">
-      <mdc-list-item *ngFor="let note of notes">
+    <mdc-list #noteList [dense]="false" [twoLine]="true" [useSelectedClass]="true" [singleSelection]="true" (selectionChange)="onSelectionChange($event)">
+      <mdc-list-item *ngFor="let note of filteredNotes">
         <mdc-list-item-text [secondaryText]="note.date ? note.date.toLocaleString() : ''">{{note.title}}
         </mdc-list-item-text>
         <span mdcListItemMeta mdcIcon title="Delete" (click)="onDelete(note)">clear</span>
@@ -333,15 +333,28 @@
     </mdc-list>
   </div>
   <div fxLayout="column">
-    <div fxLayout="row" fxLayoutGap="15px">
-      <button [disabled]="addDisabled" (click)="onAdd()" class="mdc-button mdc-button--icon-leading">
-        <span class="mdc-button__ripple"></span>
-        <i class="material-icons mdc-button__icon" aria-hidden="true">post_add</i>
-        <span class="mdc-button__label">Add</span>
-      </button>
+    <div fxLayout="row" fxLayoutAlign="space-between">
+      <div fxLayout="row">
+        <button [disabled]="addDisabled" (click)="onAdd()" class="mdc-button mdc-button--icon-leading">
+          <span class="mdc-button__ripple"></span>
+          <i class="material-icons mdc-button__icon" aria-hidden="true">post_add</i>
+          <span class="mdc-button__label">Add</span>
+        </button>
+  
+        <button (click)="onSave()" class="mdc-button mdc-button--icon-leading">
+          <span class="mdc-button__ripple"></span>
+          <i class="material-icons mdc-button__icon" aria-hidden="true">save_alt</i>
+          <span class="mdc-button__label">Save</span>
+        </button>
+      </div>
+      <div fxLayout="row">
+        <mdc-text-field #searchFieldInput label="Search" [outlined]="true" (input)="onSearchFieldInput($event)">
+          <mdc-icon mdcTextFieldIcon [leading]="true">search</mdc-icon>
+        </mdc-text-field>
+      </div>
     </div>
     <div fxLayout="column" fxLayoutGap="15px">
-      <mdc-text-field #noteTitleInput label="Title" (input)="onTextFieldInput($event)" (change)="onTextFieldChange($event)">
+      <mdc-text-field #noteTitleInput label="Title" (input)="onTextFieldInput($event)" (change)="onTextFieldChange($event)" [outlined]="true">
       </mdc-text-field>
     
       <mdc-textarea #noteTextInput label="Note" [rows]="15" [cols]="100" (change)="onTextAreaChange($event)">
