@@ -325,7 +325,7 @@
 <div fxLayout="row">
   <div fxFlex="225px">
     <mdc-list #noteList [dense]="false" [twoLine]="true" [useSelectedClass]="true" [singleSelection]="true" (selectionChange)="onSelectionChange($event)">
-      <mdc-list-item *ngFor="let note of notes">
+      <mdc-list-item *ngFor="let note of filteredNotes">
         <mdc-list-item-text [secondaryText]="note.date ? note.date.toLocaleString() : ''">{{note.title}}
         </mdc-list-item-text>
         <span mdcListItemMeta mdcIcon title="Delete" (click)="onDelete(note)">clear</span>

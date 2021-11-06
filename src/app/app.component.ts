@@ -1,5 +1,6 @@
 import { MdcList, MdcTextarea, MdcTextField } from '@angular-mdc/web';
 import { Component, ViewChild } from '@angular/core';
+import * as FileSaver from 'file-saver';
 
 export class Note {
   title: string | undefined;
@@ -28,7 +29,6 @@ export class AppComponent {
   title = 'NotesWebApp';
   public counter = 0;
   public notes = new Array<Note>();
-  public selectedIndex = -1;
   public addDisabled = true;
   public noteTitle = '';
   public noteText = '';
@@ -46,12 +46,23 @@ export class AppComponent {
       ""
     );
     this.notes.unshift(newNote);
-    this.filteredNotes = this.notes.filter(note => note.title?.includes(this.searchFieldInput?.value));
-    this.noteList?.setSelectedIndex(0);
+    this.filteredNotes = this.notes.filter(note => {
+      if (!this.searchFieldInput?.value) {
+        return this.notes;
+      }
+      return note?.title?.includes(this.searchFieldInput?.value);
+    });
+    // this.noteList?.setSelectedIndex(0);
+    setTimeout(() => {
+      this.noteList?.setSelectedIndex(0);
+      // this.onSelectionChange(null);
+      this.clearTextFields();
+      this.noteTitleInput?.focus();
+    }, 1);
   }
 
   onDelete(note: Note) {
-    if (this.notes.indexOf(note) === this.selectedIndex) {
+    if (this.notes.indexOf(note) === this.noteList?.getSelectedIndex()) {
       this.clearTextFields();
     }
 
@@ -64,14 +75,14 @@ export class AppComponent {
       let note = this.notes[this.noteList!.getSelectedIndex()];
       note.title = this.noteTitleInput?.value;
       note.text = this.noteTextInput?.value;
+      this.noteList?.reset();
       this.clearTextFields();
     }
   }
 
-  onSelectionChange(event: any) {
-    this.selectedIndex = event.source.getSelectedIndex();
-    this.noteTitleInput?.writeValue(this.notes[this.selectedIndex].title);
-    this.noteTextInput?.writeValue(this.notes[this.selectedIndex].text);
+  onSelectionChange(_: any) {
+    this.noteTitleInput?.writeValue(this.notes[this.noteList!.getSelectedIndex()].title);
+    this.noteTextInput?.writeValue(this.notes[this.noteList!.getSelectedIndex()].text);
   }
 
   onTextFieldInput(event: any) {
