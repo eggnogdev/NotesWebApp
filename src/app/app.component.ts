@@ -36,19 +36,18 @@ export class AppComponent {
 
   clearTextFields() {
     this.noteTextInput?.writeValue(null);
-    this.noteTitleInput?.writeValue(null)
+    this.noteTitleInput?.writeValue(null);
   }
 
   onAdd() {
     let newNote = new Note(
-      this.noteTitle,
+      "New Note",
       new Date(Date.now()),
-      this.noteText
+      ""
     );
     this.notes.unshift(newNote);
-    this.clearTextFields();
-    this.addDisabled = true;
     this.filteredNotes = this.notes.filter(note => note.title?.includes(this.searchFieldInput?.value));
+    this.noteList?.setSelectedIndex(0);
   }
 
   onDelete(note: Note) {
@@ -61,8 +60,8 @@ export class AppComponent {
   }
 
   onSave() {
-    if (this.selectedIndex !== -1) {
-      let note = this.notes[this.selectedIndex];
+    if (this.noteList?.getSelectedIndex() !== -1) {
+      let note = this.notes[this.noteList!.getSelectedIndex()];
       note.title = this.noteTitleInput?.value;
       note.text = this.noteTextInput?.value;
       this.clearTextFields();
