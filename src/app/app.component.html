@@ -325,7 +325,7 @@
 <div fxLayout="row">
   <div fxFlex="225px">
     <mdc-list #noteList [dense]="false" [twoLine]="true" [useSelectedClass]="true" [singleSelection]="true" (selectionChange)="onSelectionChange($event)">
-      <mdc-list-item *ngFor="let note of filteredNotes">
+      <mdc-list-item *ngFor="let note of notes">
         <mdc-list-item-text [secondaryText]="note.date ? note.date.toLocaleString() : ''">{{note.title}}
         </mdc-list-item-text>
         <span mdcListItemMeta mdcIcon title="Delete" (click)="onDelete(note)">clear</span>
@@ -335,7 +335,7 @@
   <div fxLayout="column">
     <div fxLayout="row" fxLayoutAlign="space-between">
       <div fxLayout="row">
-        <button [disabled]="addDisabled" (click)="onAdd()" class="mdc-button mdc-button--icon-leading">
+        <button (click)="onAdd()" class="mdc-button mdc-button--icon-leading">
           <span class="mdc-button__ripple"></span>
           <i class="material-icons mdc-button__icon" aria-hidden="true">post_add</i>
           <span class="mdc-button__label">Add</span>
