@@ -295,7 +295,7 @@
 </style>
 
 <!-- Toolbar -->
-<div class="toolbar" role="banner">
+<!-- <div class="toolbar" role="banner">
   <img width="40" alt="Angular Logo"
     src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==" />
   <span>Welcome</span>
@@ -316,50 +316,50 @@
         d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3-5.2 3z" />
     </svg>
   </a>
-</div>
+</div> -->
 
 <div class="content" role="main">
-
-</div>
-
-<div fxLayout="row">
-  <div fxFlex="225px">
-    <mdc-list #noteList [dense]="false" [twoLine]="true" [useSelectedClass]="true" [singleSelection]="true" (selectionChange)="onSelectionChange($event)">
-      <mdc-list-item *ngFor="let note of filteredNotes">
-        <mdc-list-item-text [secondaryText]="note.date ? note.date.toLocaleString() : ''">{{note.title}}
-        </mdc-list-item-text>
-        <span mdcListItemMeta mdcIcon title="Delete" (click)="onDelete(note)">clear</span>
-      </mdc-list-item>
-    </mdc-list>
-  </div>
-  <div fxLayout="column">
-    <div fxLayout="row" fxLayoutAlign="space-between">
-      <div fxLayout="row">
-        <button (click)="onAdd()" class="mdc-button mdc-button--icon-leading">
-          <span class="mdc-button__ripple"></span>
-          <i class="material-icons mdc-button__icon" aria-hidden="true">post_add</i>
-          <span class="mdc-button__label">Add</span>
-        </button>
-  
-        <button (click)="onSave()" class="mdc-button mdc-button--icon-leading">
-          <span class="mdc-button__ripple"></span>
-          <i class="material-icons mdc-button__icon" aria-hidden="true">save_alt</i>
-          <span class="mdc-button__label">Save</span>
-        </button>
-      </div>
-      <div fxLayout="row">
-        <mdc-text-field #searchFieldInput label="Search" [outlined]="true" (input)="onSearchFieldInput($event)">
-          <mdc-icon mdcTextFieldIcon [leading]="true">search</mdc-icon>
-        </mdc-text-field>
+  <div fxLayout="row" fxLayoutAlign="center top" fxLayoutGap="15px">
+    <div fxFlex="225px" fxLayout="column wrap">
+      <div fxFlexOffset="63px">
+        <mdc-list #noteList style="height: 500px; overflow-y: scroll;" [dense]="false" [twoLine]="true" [useSelectedClass]="true" [singleSelection]="true" (selectionChange)="onSelectionChange($event)">
+          <mdc-list-item *ngFor="let note of filteredNotes">
+            <mdc-list-item-text [secondaryText]="note.date ? note.date.toLocaleString() : ''">{{note.title}}
+            </mdc-list-item-text>
+            <span mdcListItemMeta mdcIcon title="Delete" (click)="onDelete(note)">clear</span>
+          </mdc-list-item>
+        </mdc-list>
       </div>
     </div>
     <div fxLayout="column" fxLayoutGap="15px">
-      <mdc-text-field #noteTitleInput label="Title" (input)="onTextFieldInput($event)" (change)="onTextFieldChange($event)" [outlined]="true">
-      </mdc-text-field>
+      <div fxLayout="row" fxLayoutAlign="space-between end">
+        <div fxLayout="row">
+          <button (click)="onAdd()" class="mdc-button mdc-button--icon-leading">
+            <span class="mdc-button__ripple"></span>
+            <i class="material-icons mdc-button__icon" aria-hidden="true">post_add</i>
+            <span class="mdc-button__label">Add</span>
+          </button>
     
-      <mdc-textarea #noteTextInput label="Note" [rows]="15" [cols]="100" (change)="onTextAreaChange($event)">
-      </mdc-textarea>
+          <button [disabled]="saveDisabled" (click)="onSave()" class="mdc-button mdc-button--icon-leading">
+            <span class="mdc-button__ripple"></span>
+            <i class="material-icons mdc-button__icon" aria-hidden="true">save_alt</i>
+            <span class="mdc-button__label">Save</span>
+          </button>
+        </div>
+        <div fxLayout="row">
+          <mdc-text-field #searchFieldInput label="Search" [outlined]="true" (input)="onSearchFieldInput($event)">
+            <mdc-icon mdcTextFieldIcon [leading]="true">search</mdc-icon>
+          </mdc-text-field>
+        </div>
+      </div>
+      <div fxLayout="column" fxLayoutGap="15px">
+        <mdc-text-field #noteTitleInput label="Title" (input)="onTextFieldInput($event)" (change)="onTextFieldChange($event)" [outlined]="true">
+        </mdc-text-field>
+      
+        <mdc-textarea #noteTextInput label="Note" [rows]="15" [cols]="100" (input)="onTextAreaInput($event)" (change)="onTextAreaChange($event)">
+        </mdc-textarea>
+      </div>
+  
     </div>
-
   </div>
 </div>

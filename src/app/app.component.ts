@@ -29,7 +29,7 @@ export class AppComponent {
   title = 'NotesWebApp';
   public counter = 0;
   public notes = new Array<Note>();
-  public addDisabled = true;
+  public saveDisabled = true;
   public noteTitle = '';
   public noteText = '';
   public filteredNotes = this.notes;
@@ -52,10 +52,8 @@ export class AppComponent {
       }
       return note?.title?.includes(this.searchFieldInput?.value);
     });
-    // this.noteList?.setSelectedIndex(0);
     setTimeout(() => {
       this.noteList?.setSelectedIndex(0);
-      // this.onSelectionChange(null);
       this.clearTextFields();
       this.noteTitleInput?.focus();
     }, 1);
@@ -77,20 +75,45 @@ export class AppComponent {
       note.text = this.noteTextInput?.value;
       this.noteList?.reset();
       this.clearTextFields();
+      this.saveDisabled = true;
     }
   }
 
   onSelectionChange(_: any) {
     this.noteTitleInput?.writeValue(this.notes[this.noteList!.getSelectedIndex()].title);
     this.noteTextInput?.writeValue(this.notes[this.noteList!.getSelectedIndex()].text);
+    this.noteTextInput?.focus();
   }
 
   onTextFieldInput(event: any) {
-    if (event.length === 0) {
-      this.addDisabled = true;
+    if (
+      event 
+      && this.noteList?.getSelectedIndex() !== -1
+    ) {
+      this.saveDisabled = false;
     }
     else {
-      this.addDisabled = false;
+      this.saveDisabled = true;
+    }
+  }
+
+  onTextAreaInput(event: any) {
+
+    if (
+      event 
+      && this.noteList?.getSelectedIndex() !== -1
+    ) {
+      this.saveDisabled = false;
+    }
+    else if (
+      !event 
+      && this.noteTitleInput?.value 
+      && this.noteList?.getSelectedIndex() !== -1
+    ) {
+      this.saveDisabled = false;
+    }
+    else {
+      this.saveDisabled = true;
     }
   }
 
