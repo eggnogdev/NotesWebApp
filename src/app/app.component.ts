@@ -50,7 +50,7 @@ export class AppComponent {
       if (!this.searchFieldInput?.value) {
         return this.notes;
       }
-      return note?.title?.includes(this.searchFieldInput?.value);
+      return note?.title?.includes(this.searchFieldInput?.value.toLowerCase());
     });
     setTimeout(() => {
       this.noteList?.setSelectedIndex(0);
@@ -126,6 +126,6 @@ export class AppComponent {
   }
 
   onSearchFieldInput(event: any) {
-    this.filteredNotes = this.notes.filter(note => note.title?.includes(event));
+    this.filteredNotes = this.notes.filter(note => note.title?.toLowerCase()?.includes(event.toLowerCase()));
   }
 }
